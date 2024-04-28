@@ -1,0 +1,186 @@
+.login {
+  display: flex;
+
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login__img {
+  width: 100%;
+  height: 100%;
+}
+.login__img img {
+  width: 100%;
+  height: 100%;
+}
+.login__right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  width: 55%;
+}
+.login__form-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  text-align: center;
+}
+.login__form-head h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+.login__form-head p {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.login__form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  width: 100%;
+}
+
+.login__form form input {
+  color: #8f8f8f;
+
+  font-family: "Poppins", sans-serif;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #aaaaaa;
+  width: 100%;
+}
+.login__form form input::placeholder {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  color: #8f8f8f;
+}
+.login__form form input:focus {
+  outline-color: #d0d0d0;
+}
+.login__form form div {
+  position: relative;
+  width: 100%;
+}
+#visible {
+  position: absolute;
+  right: 5%;
+  top: 30%;
+
+  width: 24px;
+  height: 24px;
+  fill: #b1b1b1;
+  cursor: pointer;
+}
+.login__form form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  background-color: #020003;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 322px) {
+  .login__img {
+    display: none;
+  }
+  .login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 90%;
+  }
+  .login__form-head h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
+  .login__form-head p {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}
+
+@media screen and (min-width: 323px) and (max-width: 376px) {
+  .login__img {
+    display: none;
+  }
+  .login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 90%;
+  }
+  .login__form-head h2 {
+    font-size: 2.6rem;
+    font-weight: 700;
+  }
+  .login__form-head p {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+}
+
+@media screen and (min-width: 377px) and (max-width: 426px) {
+  .login__img {
+    display: none;
+  }
+  .login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 427px) and (max-width: 769px) {
+  .login__img {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .login__form {
+    width: 75%;
+  }
+
+  .login__form-head h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  .login__form-head p {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .login__form form input {
+    padding: 0.9rem;
+  }
+  .login__form form input::placeholder {
+    font-size: 0.75rem;
+  }
+  #visible {
+    width: 20px;
+    height: 20px;
+  }
+  .login__form form button {
+    padding: 0.9rem;
+    font-size: 0.9rem;
+  }
+}

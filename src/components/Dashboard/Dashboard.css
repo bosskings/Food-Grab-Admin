@@ -1,0 +1,440 @@
+.dashboard {
+  display: flex;
+
+  background-color: #f9fafb;
+  height: 100vh;
+  width: 100%;
+}
+.main__container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.main__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  padding: 5rem 2rem;
+}
+.main__content-assets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.main__content-assets-head {
+  width: 100%;
+}
+.main__content-assets-head h2 {
+  font-family: "Sherika", sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+.main__content-assets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 1rem;
+
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.main__content-assets::-webkit-scrollbar {
+  display: none;
+}
+.main__content-asset {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+
+  width: 266px;
+  height: 152px;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+.main__content-asset p {
+  font-family: "Inter", sans-serif;
+  color: #d4d4d4;
+  font-size: 13px;
+  font-weight: 500;
+}
+.main__content-asset h2 {
+  font-family: "Sherika", sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+}
+.main__content-asset div {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.main__content-asset div span {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: #ffffff;
+}
+.main__content-asset.balance {
+  background-color: black;
+}
+.main__content-asset.users {
+  background-color: #ffece5;
+}
+.main__content-asset.merchants {
+  background-color: #e7f6ec;
+}
+.main__content-asset.riders {
+  background-color: #e3effc;
+}
+.main__content-asset.users p {
+  font-family: "Sherika", sans-serif;
+  color: #878787;
+}
+.main__content-asset.merchants p {
+  font-family: "Sherika", sans-serif;
+  color: #878787;
+}
+.main__content-asset.riders p {
+  font-family: "Sherika", sans-serif;
+  color: #878787;
+}
+.main__content-asset.users h2 {
+  font-family: "Sherika", sans-serif;
+  color: #383838;
+}
+.main__content-asset.merchants h2 {
+  font-family: "Sherika", sans-serif;
+  color: #383838;
+}
+.main__content-asset.riders h2 {
+  font-family: "Sherika", sans-serif;
+  color: #383838;
+}
+.main__content-asset.users div span {
+  font-family: "Sherika", sans-serif;
+  color: #383838;
+  font-weight: 500;
+}
+.main__content-asset.merchants div span {
+  font-family: "Sherika", sans-serif;
+  color: #383838;
+  font-weight: 500;
+}
+.main__content-asset.riders div span {
+  font-family: "Sherika", sans-serif;
+  color: #383838;
+  font-weight: 500;
+}
+
+.main__content-table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.main__content-table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+}
+.main__content-table-head h2 {
+  font-family: "Sherika", sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+}
+.main__content-table-head div {
+  position: relative;
+  width: 25%;
+}
+.main__content-table-head div input {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  color: #878787;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #cfcfcf;
+  width: 100%;
+}
+.main__content-table-head div input::placeholder {
+  font-family: "Inter", sans-serif;
+  color: #878787;
+  font-weight: 500;
+}
+.main__content-table-head div input:focus {
+  outline-color: #cdcdcd;
+  outline-width: 2px;
+}
+.main__content-table-head div svg {
+  position: absolute;
+  right: 7%;
+  top: 30%;
+
+  fill: #878787;
+  width: 18px;
+  height: 18px;
+}
+
+.main__content-table {
+  background-color: #f9fafb;
+}
+
+.table__merchants {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.table__merchants img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  border: none;
+  object-fit: fill;
+}
+.table__merchants div {
+  display: flex;
+  flex-direction: column;
+}
+.table__merchants div p {
+  font-family: "Sherika", sans-serif;
+  font-size: 14px;
+}
+.table__merchants div span {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  color: #878787;
+}
+.table__action-btns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+.table__action-btns button {
+  font-family: "Sherika", sans-serif;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.table__action-btns button:first-child {
+  border: 2px solid #000;
+  background-color: transparent;
+}
+.table__action-btns button:last-child {
+  background-color: #000;
+  border: none;
+  color: #fff;
+  transition: 0.3s;
+}
+.table__action-btns button:last-child:hover {
+  background-color: #333;
+}
+.rdt_TableHead {
+  color: #333;
+  font-family: "Sherika", sans-serif;
+  font-size: 14px;
+}
+.table__user__action-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+
+  width: 100%;
+}
+.status__state {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.status__active {
+  fill: #27ae60;
+  width: 10px;
+  height: 10px;
+}
+.status__deactive {
+  fill: #ff333f;
+  width: 10px;
+  height: 10px;
+}
+.trash {
+  fill: #ff333f;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 322px) {
+  .main__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 5rem 1rem 0;
+  }
+  .main__content-assets-head h2 {
+    font-family: "Sherika", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .main__content-table-head h2 {
+    font-family: "Sherika", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .main__content-table-head div {
+    position: relative;
+    width: 48%;
+  }
+  .main__content-table-head div input {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #878787;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #cfcfcf;
+    width: 100%;
+  }
+  .main__content-table-head div input::placeholder {
+    font-family: "Inter", sans-serif;
+    color: #878787;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .main__content-table-head div svg {
+    position: absolute;
+    right: 7%;
+    top: 30%;
+
+    fill: #878787;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media screen and (min-width: 323px) and (max-width: 376px) {
+  .main__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 5rem 1rem 0;
+  }
+  .main__content-assets-head h2 {
+    font-family: "Sherika", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .main__content-table-head h2 {
+    font-family: "Sherika", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .main__content-table-head div {
+    position: relative;
+    width: 48%;
+  }
+  .main__content-table-head div input {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #878787;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #cfcfcf;
+    width: 100%;
+  }
+  .main__content-table-head div input::placeholder {
+    font-family: "Inter", sans-serif;
+    color: #878787;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .main__content-table-head div svg {
+    position: absolute;
+    right: 7%;
+    top: 30%;
+
+    fill: #878787;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media screen and (min-width: 377px) and (max-width: 426px) {
+  .main__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 5rem 1rem 0;
+  }
+  .main__content-assets-head h2 {
+    font-family: "Sherika", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .main__content-table-head h2 {
+    font-family: "Sherika", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .main__content-table-head div {
+    position: relative;
+    width: 45%;
+  }
+  .main__content-table-head div input {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #878787;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #cfcfcf;
+    width: 100%;
+  }
+  .main__content-table-head div input::placeholder {
+    font-family: "Inter", sans-serif;
+    color: #878787;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .main__content-table-head div svg {
+    position: absolute;
+    right: 7%;
+    top: 30%;
+
+    fill: #878787;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media screen and (min-width: 427px) and (max-width: 769px) {
+  .main__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 6rem 1rem 0;
+  }
+  .main__content-table-head div {
+    position: relative;
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .main__content-asset {
+    padding: 1.5rem;
+  }
+  .main__content-table-head div {
+    width: 35%;
+  }
+}
