@@ -5,14 +5,24 @@ import Home from "../pages/Home"
 import Users from "../pages/Users"
 import Merchants from "../pages/Merchants"
 import Sidebar from '../components/common/Sidebar'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import AuthContext from '../context/AuthContext'
 
 const Dashboard = () => {
     const [removeMenu, setShowMenu] = useState('sidebar__close')
+    const { getTotals, getUsers, getMerchants, getUnApprovedMerchants } = useContext(AuthContext)
 
     const toggleRemoveMenu = () => {
         setShowMenu((curr) => (curr === "sidebar" ? "sidebar__close" : "sidebar"));
     };
+
+    useEffect(() => {
+        getTotals();
+        getUsers();
+        getMerchants();
+        getUnApprovedMerchants();
+    }, []);
+
     return (
         <div className='dashboard'>
             <Sidebar removeMenu={removeMenu} toggleRemoveMenu={toggleRemoveMenu} />

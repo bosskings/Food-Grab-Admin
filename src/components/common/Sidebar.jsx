@@ -10,8 +10,11 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import "./Sidebar.css"
 import sidebarLogo from "../../assets/logo.png"
 import adminProfile from "../../assets/admin.png"
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
 const Sidebar = ({ toggleRemoveMenu, removeMenu }) => {
+    const { logoutUser } = useContext(AuthContext)
     return (
         <div className={`sidebar ${removeMenu}`} >
             <div className='sidebar__container'>
@@ -70,7 +73,7 @@ const Sidebar = ({ toggleRemoveMenu, removeMenu }) => {
                             </div>
                         </div>
 
-                        <FiLogOut className="logout" />
+                        <FiLogOut className="logout" onClick={logoutUser} />
                     </div>
                 </div>
             </div>
