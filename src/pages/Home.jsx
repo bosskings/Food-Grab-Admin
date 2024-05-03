@@ -1,24 +1,30 @@
-import React, { useState } from 'react'
-import { IoIosSearch } from "react-icons/io";
+import React, { useContext, useEffect, useState } from 'react'
+// import { IoIosSearch } from "react-icons/io";
 import Checkbox from '@mui/material/Checkbox';
 
 import Navbar from "../components/common/Navbar"
 import DataTable from 'react-data-table-component';
-import approveMerchants from '../dummyData/approveMerchants';
+import AuthContext from '../context/AuthContext';
 
 const Home = ({ toggleShowMenu }) => {
     const [selectedRows, setSelectedRows] = useState([]);
+    const { authTokens, totals, approvableMerchants, getTotals, getUnApprovedMerchants } = useContext(AuthContext)
+
+    useEffect(() => {
+        getTotals();
+        getUnApprovedMerchants()
+    }, [totals, approvableMerchants]);
 
     const customColumns = [
         {
             name: 'Merchant',
-            selector: row => row.merchant.name,
+            selector: "Merchant",
             cell: row => (
                 <div className='table__merchants'>
-                    <img src={row.merchant.profilePicture} alt="Profile" width={70} />
+                    <img src={row.pictureAddress} alt="Profile" width={70} />
                     <div>
-                        <p>{row.merchant.name}</p>
-                        <span>{row.merchant.username}</span>
+                        <p>{row.firstname}</p>
+                        <span>{row.lastname}</span>
                     </div>
                 </div>
             ),
@@ -38,7 +44,7 @@ const Home = ({ toggleShowMenu }) => {
         },
         {
             name: 'Status',
-            selector: row => row.status,
+            selector: row => row.verificationStatus,
             style: {
                 color: "#000",
                 fontFamily: "Sherika, sans-serif",
@@ -53,10 +59,10 @@ const Home = ({ toggleShowMenu }) => {
             name: 'Action',
             cell: row => (
                 <>
-                    {row.status === 'pending' && (
+                    {row.verificationStatus === 'false' && (
                         <div className='table__action-btns'>
-                            <button onClick={() => handleDecline(row.id)}>Decline</button>
-                            <button onClick={() => handleApprove(row.id)}>Approve</button>
+                            <button onClick={(e) => handleDecline(row._id, e)}>Decline</button>
+                            <button onClick={(e) => handleApprove(row._id, e)}>Approve</button>
                         </div>
                     )}
                 </>
@@ -99,12 +105,58 @@ const Home = ({ toggleShowMenu }) => {
         }
     };
 
-    const handleApprove = (id) => {
-        // Logic to approve merchant with ID
+    const handleApprove = async (id, e) => {
+        try {
+            e.preventDefault()
+
+            let response = await fetch("https://api.foodgrab.africa/admin/api/v1/approveMerchants", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authTokens.token}`,
+                },
+                body: JSON.stringify({
+                    action: "true",
+                    merchantId: id
+                })
+            })
+            if (response.ok) {
+                console.log(response.statusText)
+            } else {
+                const errorData = await response.json();
+                const errorMessage = errorData.error || "Approval failed";
+                console.log(errorMessage)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    const handleDecline = (id) => {
-        // Logic to decline merchant with ID
+    const handleDecline = async (id, e) => {
+        try {
+            e.preventDefault()
+
+            let response = await fetch("https://api.foodgrab.africa/admin/api/v1/approveMerchants", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authTokens.token}`,
+                },
+                body: JSON.stringify({
+                    action: "false",
+                    merchantId: id
+                })
+            })
+            if (response.ok) {
+                console.log(response.statusText)
+            } else {
+                const errorData = await response.json();
+                const errorMessage = errorData.error || "Approval failed";
+                console.log(errorMessage)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const handleChange = ({ selectedRows }) => {
@@ -123,55 +175,55 @@ const Home = ({ toggleShowMenu }) => {
                     </div>
                     <div className='main__content-assets'>
                         <div className='main__content-asset balance'>
-                            <p>Available Balance</p>
-                            <h2>&#8358;140,000.00</h2>
-                            <div>
+                            <p>Total Orders</p>
+                            <h2>{totals.totalOrders}</h2>
+                            {/* <div>
                                 <p>Payout Balance: </p>
                                 <span>&#36;139,900.99</span>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className='main__content-asset users'>
                             <p>Total Users</p>
-                            <h2>100</h2>
-                            <div>
+                            <h2>{totals.totalUsers}</h2>
+                            {/* <div>
                                 <p>Payout Balance: </p>
                                 <span>&#36;139,900.99</span>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className='main__content-asset merchants'>
                             <p>Total Merchant</p>
-                            <h2>20</h2>
-                            <div>
+                            <h2>{totals.totalMerchants}</h2>
+                            {/* <div>
                                 <p>Payout Balance: </p>
                                 <span>&#36;139,900.99</span>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className='main__content-asset riders'>
                             <p>Total Riders</p>
-                            <h2>80</h2>
-                            <div>
+                            <h2>{totals.totalCouriers}</h2>
+                            {/* <div>
                                 <p>Payout Balance: </p>
                                 <span>&#36;139,900.99</span>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
                 <div className='main__content-table-container'>
                     <div className='main__content-table-head'>
                         <h2>Approve Merchants</h2>
-                        <div>
+                        {/* <div>
                             <input type="text" placeholder='Search' />
                             <IoIosSearch />
-                        </div>
+                        </div> */}
                     </div>
                     <div className='main__content-table'>
                         <DataTable
                             title=""
                             columns={customColumns}
-                            data={approveMerchants}
+                            data={approvableMerchants}
                             customStyles={customStyles}
                             responsive
                             selectableRows

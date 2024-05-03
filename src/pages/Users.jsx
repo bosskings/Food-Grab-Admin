@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { IoIosSearch } from 'react-icons/io'
 import DataTable from 'react-data-table-component';
 import { Checkbox } from '@mui/material';
@@ -8,21 +8,33 @@ import { RiCircleFill } from "react-icons/ri";
 
 
 import Navbar from '../components/common/Navbar'
-import UserData from '../dummyData/UserData';
+import AuthContext from '../context/AuthContext';
 
 const Users = ({ toggleShowMenu }) => {
     const [selectedRows, setSelectedRows] = useState([]);
+    const [switchStatus, setSwitchStatus] = useState({});
+
+    const { allUsers, authTokens, getUsers } = useContext(AuthContext)
+
+    useEffect(() => {
+        const storedSwitchStatus = JSON.parse(localStorage.getItem('UserSwitchStatus')) || {};
+        setSwitchStatus(storedSwitchStatus);
+    }, []);
+
+    useEffect(() => {
+        getUsers();
+    }, [allUsers]);
 
     const customColumns = [
         {
             name: 'Merchant',
-            selector: row => row.merchant.name,
+            selector: "User",
             cell: row => (
                 <div className='table__merchants'>
-                    <img src={row.merchant.profilePicture} alt="Profile" width={70} />
+                    <img src={row.pictureAddress} alt="Profile" width={70} />
                     <div>
-                        <p>{row.merchant.name}</p>
-                        <span>{row.merchant.username}</span>
+                        <p>{row.fullname}</p>
+                        <span>{row.fullname}</span>
                     </div>
                 </div>
             ),
@@ -42,11 +54,11 @@ const Users = ({ toggleShowMenu }) => {
         },
         {
             name: 'Status',
-            selector: row => row.status,
+            selector: "Status",
             cell: row => (
                 <div className='status__state'>
-                    <p>{row.status}</p>
-                    {row.status === "Active" ? <RiCircleFill className='status__active' /> : <RiCircleFill className='status__deactive' />}
+                    <p>{row.isSuspended}</p>
+                    {row.isSuspended === "true" ? <RiCircleFill className='status__active' /> : <RiCircleFill className='status__deactive' />}
                 </div>
             ),
             style: {
@@ -61,9 +73,13 @@ const Users = ({ toggleShowMenu }) => {
         },
         {
             name: 'Action',
-            cell: () => (
+            cell: (row) => (
                 <div className='table__user__action-btns'>
-                    <Switch size="small" />
+                    <Switch
+                        size="small"
+                        checked={switchStatus[row._id] || false}
+                        onChange={(e) => handleSwitchChange(e, row._id)}
+                    />
                     <PiTrashSimpleBold className='trash' />
                 </div>
             ),
@@ -108,6 +124,62 @@ const Users = ({ toggleShowMenu }) => {
     const handleChange = ({ selectedRows }) => {
         setSelectedRows(selectedRows)
     };
+
+    const handleSwitchChange = async (e, id) => {
+        const newStatus = e.target.checked;
+
+        const action = newStatus ? 'true' : 'false';
+
+        setSwitchStatus((prevState) => ({
+            ...prevState,
+            [id]: newStatus
+        }));
+
+        try {
+            const response = await fetch("https://api.foodgrab.africa/admin/api/v1/suspend", {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${authTokens.token}`,
+                },
+                body: JSON.stringify({
+                    userType: 'USER',
+                    id: id,
+                    action: action
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update user status');
+            }
+
+            localStorage.setItem('UserSwitchStatus', JSON.stringify({ ...switchStatus, [id]: newStatus }));
+
+            if (!newStatus) {
+                const updatedResponse = await fetch("https://api.foodgrab.africa/admin/api/v1/suspend", {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${authTokens.token}`,
+                    },
+                    body: JSON.stringify({
+                        userType: 'USER',
+                        id: id,
+                        action: action
+                    })
+                });
+
+                if (!updatedResponse.ok) {
+                    throw new Error('Failed to update user status again');
+                }
+            }
+        } catch (error) {
+            console.error('Error updating user status:', error);
+        }
+    };
+
+
+
     return (
         <div className='main__container'>
             <Navbar toggleShowMenu={toggleShowMenu} />
@@ -125,7 +197,7 @@ const Users = ({ toggleShowMenu }) => {
                     <DataTable
                         title=""
                         columns={customColumns}
-                        data={UserData}
+                        data={allUsers}
                         customStyles={customStyles}
                         responsive
                         selectableRows

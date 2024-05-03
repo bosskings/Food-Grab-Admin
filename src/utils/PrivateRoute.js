@@ -3,8 +3,7 @@ import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
 
 const PrivateRoute = () => {
-  //   const { user } = useContext(AuthContext);
-  const [user, setUser] = useState(true);
+  const { user } = useContext(AuthContext);
   return user ? <Outlet /> : <Navigate to="/signin" />;
 };
 
